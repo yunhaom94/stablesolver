@@ -52,3 +52,5 @@ CMakeUserPresets.json
 #cmake-build-*
 
 build/*
+install/*
+.vscode/*

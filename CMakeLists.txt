@@ -17,6 +17,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Set MSVC_RUNTIME_LIBRARY.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
+# Enable Position Independent Code for shared libraries
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Add sub-directories.
 add_subdirectory(extern)
 add_subdirectory(src)
