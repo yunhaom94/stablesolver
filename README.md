@@ -45,12 +45,29 @@ The stable solver can also be used to solve the Minimum (Weight) Vertex Cover Pr
 
 ## Usage (command line)
 
+Dependencies & Environment:
+- Ubuntu 24.04
+- clang 18.1.3
+- pkg-config
+- libblas-dev
+- liblapack-dev
+- libbz2-dev
+- zlib1g-dev
+
+
+
 Download and uncompress the instances in the `data/` folder:
 
+Install CBC library with PIC support (for building a shared library):
+1. Download or clone the [COIN-OR CBC](https://github.com/coin-or/Cbc), [CoinUtils](https://github.com/coin-or/CoinUtils), [Cgl](https://github.com/coin-or/Cgl), [Osi](https://github.com/coin-or/Osi), [Clp] (https://github.com/coin-or/Clp)
+2. Config with `./configure --prefix=$HOME/.local --enable-static --disable-shared --with-pic CFLAGS="-fPIC" CXXFLAGS="-fPIC"` for all libraries
+3. `make; make test; sudo make install`
+
+This will build static libraries in `$HOME/.local/lib` with PIC enabled, so that we can link them to StableSolver shared library.
 
 Compile:
 ```shell
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSTABLESOLVER_BUILD_SHARED=ON
 cmake --build build --config Release --parallel
 cmake --install build --config Release --prefix install
 ```

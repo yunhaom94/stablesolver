@@ -38,8 +38,8 @@ if(STABLESOLVER_USE_CPLEX)
 endif()
 FetchContent_Declare(
     mathoptsolverscmake
-    GIT_REPOSITORY https://github.com/fontanf/mathoptsolverscmake.git
-    GIT_TAG 4472814a28a40f4d861ccd757e140835c3a31bd0
+    GIT_REPOSITORY https://github.com/yunhaom94/mathoptsolverscmake.git
+    GIT_TAG bb40ef6a717a4f9927299c8cd3687971f40eb32c 
     #SOURCE_DIR "${PROJECT_SOURCE_DIR}/../mathoptsolverscmake/"
     EXCLUDE_FROM_ALL)
 FetchContent_MakeAvailable(mathoptsolverscmake)
