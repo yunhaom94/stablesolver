@@ -53,15 +53,23 @@ Dependencies & Environment:
 - liblapack-dev
 - libbz2-dev
 - zlib1g-dev
+- libnauty-dev
 
 
 
 Download and uncompress the instances in the `data/` folder:
 
-Install CBC library with PIC support (for building a shared library):
-1. Download or clone the [COIN-OR CBC](https://github.com/coin-or/Cbc), [CoinUtils](https://github.com/coin-or/CoinUtils), [Cgl](https://github.com/coin-or/Cgl), [Osi](https://github.com/coin-or/Osi), [Clp] (https://github.com/coin-or/Clp)
+Install CBC library and the dependencies with PIC support (for building a shared library):
+1. Download or clone the [COIN-OR CBC](https://github.com/coin-or/Cbc), [CoinUtils](https://github.com/coin-or/CoinUtils), [Cgl](https://github.com/coin-or/Cgl), [Osi](https://github.com/coin-or/Osi), [Clp](https://github.com/coin-or/Clp)
 2. Config with `./configure --prefix=$HOME/.local --enable-static --disable-shared --with-pic CFLAGS="-fPIC" CXXFLAGS="-fPIC"` for all libraries
 3. `make; make test; sudo make install`
+Build Order:
+1. CoinUtils
+2. Osi
+3. Clp
+4. Cgl
+5. CBC
+
 
 This will build static libraries in `$HOME/.local/lib` with PIC enabled, so that we can link them to StableSolver shared library.
 
