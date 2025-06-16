@@ -24,6 +24,7 @@ typedef void* SolverHandler;
 // Result structure
 typedef struct {
     int is_feasible;
+    int number_of_vertices;
     int *vertices;
     double solve_time;
 } StableSolverResult;

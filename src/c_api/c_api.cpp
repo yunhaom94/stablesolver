@@ -99,7 +99,7 @@ StableSolverResult solve(InstanceHandler instance, int type) {
     if (type == 1 || type == 2 || type == 3 || type == 4) {
         stable::GreedyParameters parameters;
         parameters.timer.set_sigint_handler();
-        parameters.messages_to_stdout = true;
+        parameters.messages_to_stdout = false;
 
         if (type == 1) {
             auto result = stable::greedy_gwmin(*instance_ptr, parameters);
@@ -118,13 +118,13 @@ StableSolverResult solve(InstanceHandler instance, int type) {
     } else if (type == 5) {
         stable::MilpCbcParameters parameters;
         parameters.timer.set_sigint_handler();
-        parameters.messages_to_stdout = true;
+        parameters.messages_to_stdout = false;
 
         auto result = stable::milp_1_cbc(*instance_ptr, parameters);
         return parse_result(result);
     } 
 
-    return {0, nullptr, 0.0};
+    return {0, 0, nullptr, 0.0};
 
 }
 
@@ -140,9 +140,12 @@ StableSolverResult parse_result(const stable::Output& output) {
     StableSolverResult result;
     result.is_feasible = output.solution.feasible() ? 1 : 0;
     result.solve_time = output.time;
-    result.vertices = new int[output.solution.number_of_vertices()];
-    for (int i : output.solution.vertices()) {
-        result.vertices[i] = 1; // Mark vertex as included in the solution
+    result.number_of_vertices = output.solution.number_of_vertices();
+    result.vertices = new int[result.number_of_vertices];
+    int i = 0;
+    for (int v : output.solution.vertices()) {
+        result.vertices[i] = v; // Mark vertex as included in the solution
+        i++;
     }
     return result;
 }
