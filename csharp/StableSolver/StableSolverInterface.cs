@@ -32,6 +32,14 @@ public static partial class StableSolverInterface
     [LibraryImport(LibraryName)]
     public static partial int instance_set_weight(IntPtr handle, int vertex_id, long weight);
 
+    /// <summary>
+    /// Adds an edge between two vertices in the instance.
+    /// </summary>
+    /// <param name="handle"></param>
+    /// <param name="vertex_id_1"></param>
+    /// <param name="vertex_id_2"></param>
+    /// <param name="check_duplicate"> 0 for no check at all; 1 for check and do nothing if there is duplicate; 2 for throw error if there is duplicate</param>
+    /// <returns></returns>
     [LibraryImport(LibraryName)]
     public static partial int instance_add_edge(IntPtr handle, int vertex_id_1, int vertex_id_2, int check_duplicate = 0);
 
