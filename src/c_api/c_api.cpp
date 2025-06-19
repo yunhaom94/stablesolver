@@ -128,13 +128,18 @@ StableSolverResult solve(InstanceHandler instance, int type) {
 
 }
 
-void cleanup(InstanceBuilderHandle handle, InstanceHandler instance, StableSolverResult result) {
+void cleanup_graph(InstanceBuilderHandle handle, InstanceHandler instance) {
     delete static_cast<stable::InstanceBuilder*>(handle);
     delete static_cast<stable::Instance*>(instance);
-    delete[] result.vertices; // Free the vertices array
 }
 
-} // extern "C"
+void cleanup_result(StableSolverResult result) {
+    delete[] result.vertices; // Free the vertices array
+    result.vertices = nullptr; // Avoid dangling pointer
+
+} 
+
+}// extern "C"
 
 StableSolverResult parse_result(const stable::Output& output) {
     StableSolverResult result;

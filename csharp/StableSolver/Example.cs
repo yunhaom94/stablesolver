@@ -9,9 +9,6 @@ public class SolverExample
     {
         Console.WriteLine("Running low-level example...");
         RunLowLevelExample();
-
-        Console.WriteLine("\nRunning high-level example...");
-        RunHighLevelExample();
     }
 
     private static void RunLowLevelExample()
@@ -105,66 +102,13 @@ public class SolverExample
             }
 
             // Cleanup resources
-            StableSolverInterface.cleanup(instanceBuilder, instance, result_struct);
+            StableSolverInterface.cleanup_graph(instanceBuilder, instance);
+            StableSolverInterface.cleanup_result(result_struct);
             Console.WriteLine("Cleanup completed");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-    }
-
-    private static void RunHighLevelExample()
-    {
-        try
-        {
-            using (var solver = new Solver())
-            {
-                // Create a triangle graph (vertices 0, 1, 2 with edges forming a triangle)
-                solver.AddVertices(3);
-                Console.WriteLine("Added 3 vertices");
-
-                // Set weights
-                solver.SetWeight(0, 5);
-                solver.SetWeight(1, 3);
-                solver.SetWeight(2, 7);
-                Console.WriteLine("Set vertex weights: v0=5, v1=3, v2=7");
-
-                // Add edges to form a triangle
-                solver.AddEdge(0, 1);
-                solver.AddEdge(1, 2);
-                solver.AddEdge(2, 0);
-                Console.WriteLine("Added edges: (0,1), (1,2), (2,0) - forming a triangle");
-
-                // Build and solve
-                solver.Build();
-                Console.WriteLine("Instance built successfully");
-
-                var (isFeasible, vertices, solveTime) = solver.Solve(1);
-
-                Console.WriteLine($"Solution found in {solveTime:F3} seconds");
-
-                if (isFeasible)
-                {
-                    Console.WriteLine($"Feasible solution found with {vertices.Length} vertices:");
-                    foreach (int vertex in vertices)
-                    {
-                        Console.WriteLine($"  Vertex {vertex}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No feasible solution found.");
-                }
-            } // Automatic cleanup via using statement
-            Console.WriteLine("High-level example completed");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error in high-level example: {ex.Message}");
-        }
-
-        Console.WriteLine("\nAll examples completed. Press any key to exit...");
-        Console.ReadKey();
     }
 }

@@ -41,7 +41,8 @@ STABLESOLVER_API int instance_set_unweighted(InstanceBuilderHandle handle);
 STABLESOLVER_API InstanceHandler instance_build(InstanceBuilderHandle handle);
 
 STABLESOLVER_API StableSolverResult solve(InstanceHandler instance, int type);
-STABLESOLVER_API void cleanup(InstanceBuilderHandle handle, InstanceHandler instance, StableSolverResult result);
+STABLESOLVER_API void cleanup_graph(InstanceBuilderHandle handle, InstanceHandler instance);
+STABLESOLVER_API void cleanup_result(StableSolverResult result);
 
 
 
